@@ -1,5 +1,7 @@
 import torch
 
+__all__ = ['rand_tri']
+
 def rand_tri( shape, a, b, c ):
     def tri_inv_cdf( u, a, b, c ):
         m = (u< (c-a)/(b-a)).float()
