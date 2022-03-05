@@ -29,11 +29,11 @@ def sampled_gamma_dist_cdf(a, b, step=0.001, eps=1E-6, n_max=1E6 ):
 
 def approximated_gamma_dist_cdf(a, b, step=0.001, eps=1E-6, n_max=1E6 ):
     xxx, cdf = sampled_gamma_dist_cdf(a,b,step, eps, n_max )
-    return interp1d( xxx,cdf )
+    return interp1d( xxx,cdf, assume_sorted=True )
 
 def approximated_gamma_dist_cdf_inv(a, b, step=0.001, eps=1E-6, n_max=1E6 ):
     xxx, cdf = sampled_gamma_dist_cdf(a,b,step, eps, n_max )
-    return interp1d( cdf, xxx )
+    return interp1d( cdf, xxx, assume_sorted=True )
 
 class RandDistGamma():
     '''

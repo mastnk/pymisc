@@ -20,6 +20,8 @@ The approximation function is constructed by piecewise linear interpolation with
 
 It generates random numbers from a gamma distribution with shape *a* and scale *b*.
 
+It takes some time for building sample data. But, the generation is much faster than the torch.distributions.gamma.Gamma .
+
 *step* : sample step in the input domain
 
 *eps* : criterion to stop sampling. The sampling is stopped when the cdf is over 1-*eps*
@@ -30,10 +32,13 @@ It generates random numbers from a gamma distribution with shape *a* and scale *
 
 [docs.scipy: scipy.special.gammainc](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.gammainc.html)
 
+(pytorch: distributions.gamma.Gamma)[https://pytorch.org/docs/stable/distributions.html#torch.distributions.gamma.Gamma]
 
 ### RandDistTruncatedGaussian
 
 It generates random numbers from a truncated gaussian distribution with *mean*, standard deviation *sigma*, lower bound *a*, and upper bound *b*.
+
+pytorch does not provide the truncated gaussian distribution. It is faster than the Qiita code because the cdf is piecewise linear approximation. It also take some time to build the sampling data.
 
 *step*: sample step in \[0,1\].
 
