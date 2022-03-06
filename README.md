@@ -43,3 +43,9 @@ pytorch does not provide the truncated gaussian distribution. It is faster than 
 *step*: sample step in \[0,1\].
 
 [Qiita: Truncated Distributionからのサンプリング](https://qiita.com/9_ties/items/c593daab8b3f71638edd)
+
+
+### module_sample
+
+When we impliment the python module, I can't be bothered to maintain \_\_init\_\_.py.
+This is example to be free from maintaining \_\_init\_\_.py.
