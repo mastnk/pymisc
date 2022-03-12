@@ -9,3 +9,4 @@ def square(x):
 # This function cannot be accessed from main, because the function name starts with '_'
 def _square(x):
     return x*x
+
