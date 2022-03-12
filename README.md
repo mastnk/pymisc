@@ -45,7 +45,14 @@ pytorch does not provide the truncated gaussian distribution. It is faster than 
 [Qiita: Truncated Distributionからのサンプリング](https://qiita.com/9_ties/items/c593daab8b3f71638edd)
 
 
-### module_sample
+## randn_device.py
+
+It provides the random sampling from standard normal distribution on your device.
+
+It is much faster than sampling on CPU then transfering to GPU.
+
+
+## module_sample
 
 When we impliment the python module, I can't be bothered to maintain \_\_init\_\_.py.
 This is example to be free from maintaining \_\_init\_\_.py.
