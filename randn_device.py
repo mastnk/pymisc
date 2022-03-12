@@ -3,7 +3,7 @@
 import torch
 
 class RandNormal():
-    def __init__(self, shape=(1,), device=None, dtype=torch.float):
+    def __init__(self, shape=(1,), device='cpu', dtype=torch.float):
         self.__rand = None
         self.set( shape, device, dtype )
 
