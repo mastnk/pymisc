@@ -2,7 +2,7 @@
 
 import torch
 
-class RandNormal():
+class _RandDevice():
     def __init__(self, shape=(1,), device='cpu', dtype=torch.float):
         self.__rand = None
         self.set( shape, device, dtype )
@@ -21,8 +21,10 @@ class RandNormal():
             self.__rand.dtype != dtype ):
             self.__rand = torch.randn(shape).to(device=device,dtype=dtype)
 
-    def sample( self ):
-        return self.__rand.normal_()
+
+    def same_as( self, x ):
+        self.set( x.shape, x.device, x.dtype )
+        return self.__call__()
 
     @property
     def shape( self ):
@@ -36,6 +38,24 @@ class RandNormal():
     def device( self ):
         return self.__rand.device
 
+    @property
+    def rand( self ):
+        return self.__rand
+
+class RandNormal(_RandDevice):
+    def __init__(self, shape=(1,), device='cpu', dtype=torch.float):
+        super(RandNormal,self).__init__( shape, device, dtype )
+
+    def __call__( self ):
+        return self.rand.normal_()
+
+class RandUniform(_RandDevice):
+    def __init__(self, shape=(1,), device='cpu', dtype=torch.float):
+        super(RandUniform,self).__init__( shape, device, dtype )
+
+    def __call__( self ):
+        return self.rand.uniform_()
+
 if( __name__ == '__main__' ):
     from perf_timer import *
 
@@ -43,15 +63,20 @@ if( __name__ == '__main__' ):
 
     n = 10000
 
-    x = RandNormal( (n,), 'cuda' )
-    print( x.sample()[:2] )
-    print( x.sample()[:2] )
+    x = torch.rand( (n,) ).to('cuda')
+    RU = RandUniform()
+    print( RU.same_as(x)[:2] )
+    print()
+
+    x = torch.randn( (n,) )
+    RN = RandNormal( (n,), 'cuda' )
+    print( RN()[:2] )
+    print( RN()[:2] )
 
     print( 'GPU' )
     pt.start()
     for i in range(n):
-        x.set( x.shape, x.device, x.dtype )
-        x.sample()
+        x = RN()
     pt.stop()
     print( pt.get_time() )
 
